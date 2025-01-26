@@ -1,7 +1,28 @@
 import Image from "next/image";
 import { GlitchCounter } from "@/components/GlitchCounter";
+import twitchToken from "../lib/twitchToken";
 
-export default function Home() {
+export default async function Home() {
+  const token = await twitchToken();
+  const fetchGames = await fetch("https://api.igdb.com/v4/games", {
+    headers: {
+      "Client-ID": process.env.TWITCH_CLIENT_ID ?? "",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "POST",
+    body: `
+      fields name, release_dates.date, hypes, cover.image_id, cover.url; 
+      where release_dates.date >= ${Math.floor(Date.now() / 1000)}; 
+      sort hypes desc; 
+      limit 5;
+    `,
+    cache: "force-cache",
+    next: {
+      revalidate: 86400,
+    },
+  });
+  const gamesResult = await fetchGames.json();
+  console.log(gamesResult);
   return (
     <>
       <div
