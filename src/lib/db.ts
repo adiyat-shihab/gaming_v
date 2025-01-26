@@ -12,10 +12,13 @@ let clientPromise: Promise<MongoClient>;
 
 if (process.env.NODE_ENV === "development") {
   // Use a global variable to preserve the client during development
+  // @ts-ignore
   if (!global._mongoClientPromise) {
     client = new MongoClient(uri, options);
+    // @ts-ignore
     global._mongoClientPromise = client.connect();
   }
+  // @ts-ignore
   clientPromise = global._mongoClientPromise;
 } else {
   // In production, avoid using a global variable
