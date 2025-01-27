@@ -1,7 +1,7 @@
 import "./globals.css";
 import localFont from "next/font/local";
-import HubLayout from "@/components/HubLayout";
-import Frame from "@/components/frame";
+import HubLayout from "@/components/molecule/HubLayout";
+import Frame from "@/components/atoms/frame";
 
 const blenderProFont = localFont({
   src: "./fonts/blenderPro.woff2",
@@ -17,11 +17,18 @@ export default function RootLayout({
       <body
         className={` relative ${blenderProFont.className} text-white bg-black antialiased uppercase`}
       >
-        <Frame style={"absolute left-0 top-0"} />
+        <Frame style={"fixed left-0 top-0"} />
         <HubLayout />
-
+        <div
+          className="  fixed h-80 w-[80vw] top-0 "
+          style={{
+            background:
+              "radial-gradient( 50.3% 50.08% at 50% 50.23%, #F75049 6%, #0000 100% )",
+            filter: "blur(220px)",
+          }}
+        ></div>
         <div className={"px-20 py-10"}>{children}</div>
-        <Frame style={"absolute right-0 top-0 rotate-180"} />
+        <Frame style={"fixed right-0 top-0 rotate-180 h-screen"} />
       </body>
     </html>
   );

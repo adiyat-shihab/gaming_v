@@ -1,8 +1,20 @@
 import Image from "next/image";
-import { GlitchCounter } from "@/components/GlitchCounter";
+import { GlitchCounter } from "@/components/atoms/GlitchCounter";
 import twitchToken from "../lib/twitchToken";
+import CategoryFrame from "@/components/molecule/CategoryFrame";
 
 export default async function Home() {
+  const genre = [
+    "Trending",
+    "Fighting",
+    "Shooter",
+    "Role-Playing(RPG)",
+    "Adventure",
+    "Racing",
+    "Simulator",
+    "Search",
+  ];
+
   const token = await twitchToken();
   const fetchGames = await fetch("https://api.igdb.com/v4/games", {
     headers: {
@@ -14,27 +26,52 @@ export default async function Home() {
       fields name, release_dates.date, hypes, cover.image_id, cover.url; 
       where release_dates.date >= ${Math.floor(Date.now() / 1000)}; 
       sort hypes desc; 
-      limit 5;
+      limit 18;
     `,
-    cache: "force-cache",
     next: {
-      revalidate: 86400,
+      revalidate: 540000,
     },
   });
-  const gamesResult = await fetchGames.json();
-  console.log(gamesResult);
+  const upcomingGames = await fetchGames.json();
   return (
-    <>
-      <div
-        className="  absolute h-80 w-[80vw] top-0 "
-        style={{
-          background:
-            "radial-gradient( 50.3% 50.08% at 50% 50.23%, #F75049 6%, #0000 100% )",
-          filter: "blur(220px)",
-        }}
-      ></div>
+    <div>
+      {/*<div*/}
+      {/*  className="  absolute h-80 w-[80vw] top-0 "*/}
+      {/*  style={{*/}
+      {/*    background:*/}
+      {/*      "radial-gradient( 50.3% 50.08% at 50% 50.23%, #F75049 6%, #0000 100% )",*/}
+      {/*    filter: "blur(220px)",*/}
+      {/*  }}*/}
+      {/*></div>*/}
 
-      <h1 className={"text-7xl"}>Hello, Next.js!</h1>
-    </>
+      <div>
+        <h1 className={"text-7xl"}>Upcoming Games</h1>
+        <div className={"grid-cols-6 grid gap-y-10 justify-center py-10"}>
+          {upcomingGames.map((game: object, index: number) => (
+            <div
+              key={index}
+              className={"border-[#fb2c3680] border w-fit border-opacity-50"}
+            >
+              {game?.cover?.url && (
+                <Image
+                  src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game?.cover?.image_id}.webp`}
+                  alt={game?.name}
+                  className="w-fit h-[160px]  sm:h-[300px]  "
+                  width={500}
+                  height={500}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      <h1 className={"text-7xl"}>Browse by category</h1>
+
+      <div className={"grid grid-cols-4 py-10 content-center gap-y-10"}>
+        {genre.map((item, index) => (
+          <CategoryFrame title={item} key={index} index={index} />
+        ))}
+      </div>
+    </div>
   );
 }

@@ -1,0 +1,11 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 747 691" width="747" height="691">
+	<title>&lt;Compound Path&gt;</title>
+	<style>
+		.s0 { opacity: .5;fill: #ff413d } 
+		.s1 { opacity: .8;fill: #ff413d } 
+		.s2 { opacity: .3;fill: #ff413d } 
+	</style>
+	<path id="&lt;Compound Path&gt;" fill-rule="evenodd" class="s0" d="m675 690.1h-614.9v-527.3l-59.6-59.7v-102.1h288.2l45.2 45.2h341.1v130.8l71.3 69.3v250.6l-0.5 0.5-70.8 70.8zm-611.9-3h608.9v-120.1l71.3-71.3v-248.1l-71.3-69.4v-129h-339.3l-45.3-45.2h-283.9v97.9l59.6 59.6z"/>
+	<path id="&lt;Compound Path&gt;" fill-rule="evenodd" class="s1" d="m663.8 678.9h-592.5v-520.8l-59.6-59.6v-86.3h272.3l45.3 45.3h334.5v124.2l71.2 69.4v241.2l-71.2 71.2zm-587.5-5h582.5v-112.4l71.2-71.2v-237.1l-71.2-69.3v-121.4h-331.6l-45.3-45.2h-265.2v79.2l59.6 59.6z"/>
+	<path id="&lt;Compound Path&gt;" fill-rule="evenodd" class="s2" d="m634.4 650.1h-534.1v-534.1h534.1zm-528-6.1h521.9v-521.9h-521.9z"/>
+</svg>
