@@ -2,6 +2,7 @@ import Image from "next/image";
 import { GlitchCounter } from "@/components/atoms/GlitchCounter";
 import twitchToken from "../lib/twitchToken";
 import CategoryFrame from "@/components/molecule/CategoryFrame";
+import igdb from "igdb-api-node";
 
 export default async function Home() {
   const genre = [
@@ -33,6 +34,20 @@ export default async function Home() {
     },
   });
   const upcomingGames = await fetchGames.json();
+  const client = igdb(process.env.TWITCH_CLIENT_ID, token);
+  const response = await client
+    .fields([
+      "cover.image_id",
+      "cover.url",
+      "hypes",
+      "release_dates.date",
+      "name",
+    ]) // Include desired fields
+    .limit(18)
+    .where(`release_dates.date >=  ${Math.floor(Date.now() / 1000)}`)
+    .sort("hypes", "desc")
+    .request("/games");
+  console.log(response.data);
   return (
     <div>
       {/*<div*/}
@@ -47,7 +62,7 @@ export default async function Home() {
       <div>
         <h1 className={"text-7xl"}>Upcoming Games</h1>
         <div className={"grid-cols-6 grid gap-y-10 justify-center py-10"}>
-          {upcomingGames.map((game: object, index: number) => (
+          {response.data.map((game: object, index: number) => (
             <div
               key={index}
               className={"border-[#fb2c3680] border w-fit border-opacity-50"}
@@ -65,13 +80,13 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <h1 className={"text-7xl"}>Browse by category</h1>
+      {/*<h1 className={"text-7xl"}>Browse by category</h1>*/}
 
-      <div className={"grid grid-cols-4 py-10 content-center gap-y-10"}>
-        {genre.map((item, index) => (
-          <CategoryFrame title={item} key={index} index={index} />
-        ))}
-      </div>
+      {/*<div className={"grid grid-cols-4 py-10 content-center gap-y-10"}>*/}
+      {/*  {genre.map((item, index) => (*/}
+      {/*    <CategoryFrame title={item} key={index} index={index} />*/}
+      {/*  ))}*/}
+      {/*</div>*/}
     </div>
   );
 }
