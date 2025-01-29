@@ -17,37 +17,37 @@ export default async function Home() {
   // ];
 
   const token = await twitchToken();
-  // const fetchGames = await fetch("https://api.igdb.com/v4/games", {
-  //   headers: {
-  //     "Client-ID": process.env.TWITCH_CLIENT_ID ?? "",
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  //   method: "POST",
-  //   body: `
-  //     fields name, release_dates.date, hypes, cover.image_id, cover.url;
-  //     where release_dates.date >= ${Math.floor(Date.now() / 1000)};
-  //     sort hypes desc;
-  //     limit 18;
-  //   `,
-  //   next: {
-  //     revalidate: 540000,
-  //   },
-  // });
-  // const upcomingGames = await fetchGames.json();
-  const client = igdb(process.env.TWITCH_CLIENT_ID, token);
-  const response = await client
-    .fields([
-      "cover.image_id",
-      "cover.url",
-      "hypes",
-      "release_dates.date",
-      "name",
-    ]) // Include desired fields
-    .limit(18)
-    .where(`release_dates.date >=  ${Math.floor(Date.now() / 1000)}`)
-    .sort("hypes", "desc")
-    .request("/games");
-  console.log(response.data);
+  const fetchGames = await fetch("https://api.igdb.com/v4/games", {
+    headers: {
+      "Client-ID": process.env.TWITCH_CLIENT_ID ?? "",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "POST",
+    body: `
+      fields name, release_dates.date, hypes, cover.image_id, cover.url;
+      where release_dates.date >= ${Math.floor(Date.now() / 1000)};
+      sort hypes desc;
+      limit 18;
+    `,
+    next: {
+      revalidate: 540000,
+    },
+  });
+  const upcomingGames = await fetchGames.json();
+  // const client = igdb(process.env.TWITCH_CLIENT_ID, token);
+  // const response = await client
+  //   .fields([
+  //     "cover.image_id",
+  //     "cover.url",
+  //     "hypes",
+  //     "release_dates.date",
+  //     "name",
+  //   ]) // Include desired fields
+  //   .limit(18)
+  //   .where(`release_dates.date >=  ${Math.floor(Date.now() / 1000)}`)
+  //   .sort("hypes", "desc")
+  //   .request("/games");
+  // console.log(response.data);
   return (
     <div>
       {/*<div*/}
@@ -62,7 +62,7 @@ export default async function Home() {
       <div>
         <h1 className={"text-7xl"}>Upcoming Games</h1>
         <div className={"grid-cols-6 grid gap-y-10 justify-center py-10"}>
-          {response?.data?.map((game: object, index: number) => (
+          {upcomingGames.map((game: object, index: number) => (
             <div
               key={index}
               className={"border-[#fb2c3680] border w-fit border-opacity-50"}

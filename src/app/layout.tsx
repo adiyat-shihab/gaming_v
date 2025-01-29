@@ -21,7 +21,7 @@ export default function RootLayout({
         <Frame style={"fixed left-0 top-0"} />
         <HubLayout />
         <div
-          className="  fixed h-80 w-[80vw] top-0 "
+          className="  fixed h-80 w-[80vw] top-0 -z-10 "
           style={{
             background:
               "radial-gradient( 50.3% 50.08% at 50% 50.23%, #F75049 6%, #0000 100% )",
