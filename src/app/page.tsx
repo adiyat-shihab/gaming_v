@@ -3,6 +3,7 @@ import { GlitchCounter } from "@/components/atoms/GlitchCounter";
 import twitchToken from "../lib/twitchToken";
 import CategoryFrame from "@/components/molecule/CategoryFrame";
 import igdb from "igdb-api-node";
+import axios from "axios";
 
 export default async function Home() {
   // const genre = [
@@ -16,11 +17,14 @@ export default async function Home() {
   //   "Search",
   // ];
 
-  const token = await twitchToken();
+  // const token = await twitchToken();
+  const { data } = await axios.post(
+    `https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&grant_type=client_credentials`,
+  );
   const fetchGames = await fetch("https://api.igdb.com/v4/games", {
     headers: {
       "Client-ID": process.env.TWITCH_CLIENT_ID ?? "",
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${data.access_token}`,
     },
     method: "POST",
     body: `
