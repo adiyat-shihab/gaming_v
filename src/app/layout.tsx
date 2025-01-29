@@ -2,6 +2,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import HubLayout from "@/components/molecule/HubLayout";
 import Frame from "@/components/atoms/frame";
+import BotHubLay from "@/components/molecule/BotHubLay";
 
 const blenderProFont = localFont({
   src: "./fonts/blenderPro.woff2",
@@ -20,7 +21,7 @@ export default function RootLayout({
         <Frame style={"fixed left-0 top-0"} />
         <HubLayout />
         <div
-          className="  fixed h-80 w-[80vw] top-0 "
+          className="  fixed h-80 w-[80vw] top-0 -z-10 "
           style={{
             background:
               "radial-gradient( 50.3% 50.08% at 50% 50.23%, #F75049 6%, #0000 100% )",
@@ -29,6 +30,7 @@ export default function RootLayout({
         ></div>
         <div className={"px-20 py-10"}>{children}</div>
         <Frame style={"fixed right-0 top-0 rotate-180 h-screen"} />
+        <BotHubLay />
       </body>
     </html>
   );

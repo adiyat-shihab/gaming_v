@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { GlitchCounter } from "@/components/atoms/GlitchCounter";
 import twitchToken from "../lib/twitchToken";
 import CategoryFrame from "@/components/molecule/CategoryFrame";
+import igdb from "igdb-api-node";
 
 export default async function Home() {
   const genre = [
@@ -16,6 +16,10 @@ export default async function Home() {
   ];
 
   const token = await twitchToken();
+  console.log(token);
+  const client = igdb(process.env.TWITCH_CLIENT_ID, token);
+  console.log(client);
+
   const fetchGames = await fetch("https://api.igdb.com/v4/games", {
     headers: {
       "Client-ID": process.env.TWITCH_CLIENT_ID ?? "",
@@ -33,6 +37,29 @@ export default async function Home() {
     },
   });
   const upcomingGames = await fetchGames.json();
+
+  // const trendingGames = await fetch("https://api.igdb.com/v4/games", {
+  //   headers: {
+  //     "Client-ID": process.env.TWITCH_CLIENT_ID ?? "",
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  //   method: "POST",
+  //   body: "fields *;",
+  // });
+  // const trendG = await trendingGames.json();
+  // console.log(trendG);
+  const response = await client
+    .fields([
+      "name",
+      "popularity",
+      "first_release_date",
+      "summary",
+      "cover.url",
+    ]) // Include desired fields
+    .limit(20) // Fetch 20 games
+    .sort("popularity", "desc") // Sort by popularity in descending order
+    .request("/games");
+  console.log(response);
   return (
     <div>
       {/*<div*/}
@@ -63,6 +90,29 @@ export default async function Home() {
               )}
             </div>
           ))}
+        </div>
+      </div>
+      <div>
+        <h1 className={"text-7xl"}>Tending R8n</h1>
+        <div>
+          <div className={"grid-cols-6 grid gap-y-10 justify-center py-10"}>
+            {upcomingGames.map((game: object, index: number) => (
+              <div
+                key={index}
+                className={"border-[#fb2c3680] border w-fit border-opacity-50"}
+              >
+                {game?.cover?.url && (
+                  <Image
+                    src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game?.cover?.image_id}.webp`}
+                    alt={game?.name}
+                    className="w-fit h-[160px]  sm:h-[300px]  "
+                    width={500}
+                    height={500}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <h1 className={"text-7xl"}>Browse by category</h1>
