@@ -29,11 +29,10 @@ export default function RootLayout({
             filter: "blur(220px)",
           }}
         ></div>
-        <div className={"px-20 py-10"}>
-          {children} <SpeedInsights />
-        </div>
+        <div className={"px-20 py-10"}>{children}</div>
         <Frame style={"fixed right-0 top-0 rotate-180 h-screen"} />
         <BotFrameLay />
+        <SpeedInsights />
       </body>
     </html>
   );
