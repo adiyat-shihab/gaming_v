@@ -1,7 +1,5 @@
 import Image from "next/image";
-import { GlitchCounter } from "@/components/atoms/GlitchCounter";
 import twitchToken from "../lib/twitchToken";
-import CategoryFrame from "@/components/molecule/CategoryFrame";
 import igdb from "igdb-api-node";
 
 export default async function Home() {

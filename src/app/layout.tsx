@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` relative ${blenderProFont.className} text-white bg-black antialiased uppercase`}
+        className={` relative cursor-[url(./cursor.png), _default] ${blenderProFont.className} text-white bg-black antialiased uppercase`}
       >
         <Frame style={"fixed left-0 top-0"} />
         <HubLayout />

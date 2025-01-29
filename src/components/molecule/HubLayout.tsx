@@ -10,7 +10,7 @@ const HubLayout = () => {
         <div className={"flex items-start gap-3"}>
           <div
             className={
-              "border border-[#1DED83] p-1 mb-4 mb- ml-2 w-fit  rotate-45"
+              "border border-[#1DED83]  p-1 mb-4 mb- ml-2 w-fit  rotate-45"
             }
           >
             <Image
@@ -21,9 +21,46 @@ const HubLayout = () => {
               height={24}
             />
           </div>
+
           <div>
             <InfBar />
           </div>
+        </div>
+        {/*<div className={"w-1/5 relative"}>*/}
+        {/*  <input*/}
+        {/*    type="text"*/}
+        {/*    placeholder={"shihsb"}*/}
+        {/*    className={*/}
+        {/*      "outline-none border-[#F75049] border h-full w-full  bg-transparent "*/}
+        {/*    }*/}
+        {/*  />*/}
+        {/*  <div*/}
+        {/*    className={*/}
+        {/*      "border-t border-[#F75049] bg-transparent w-5 h-6 absolute rotate-[45deg] -left-3 -bottom-3  "*/}
+        {/*    }*/}
+        {/*  ></div>*/}
+        {/*</div>*/}
+        <div className={"relative"}>
+          <svg
+            width="426"
+            height="46"
+            viewBox="0 0 426 46"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M401 1H0.5V32L27 45.5H425.5V15.5L401 1Z"
+              stroke="#F75049"
+              opacity="0.3"
+            />
+          </svg>
+          <input
+            type="text"
+            placeholder={"Search Games..."}
+            className={
+              "  absolute top-1  w-[23rem]  placeholder:uppercase h-10 left-8 outline-none"
+            }
+          />
         </div>
         <div>
           <p className={"text-[#F75049] text-end"}>pages</p>
