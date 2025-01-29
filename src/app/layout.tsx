@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import HubLayout from "@/components/molecule/HubLayout";
 import Frame from "@/components/atoms/frame";
 import BotFrameLay from "@/components/molecule/BotFrameLay";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const blenderProFont = localFont({
   src: "./fonts/blenderPro.woff2",
@@ -28,7 +29,9 @@ export default function RootLayout({
             filter: "blur(220px)",
           }}
         ></div>
-        <div className={"px-20 py-10"}>{children}</div>
+        <div className={"px-20 py-10"}>
+          {children} <SpeedInsights />
+        </div>
         <Frame style={"fixed right-0 top-0 rotate-180 h-screen"} />
         <BotFrameLay />
       </body>

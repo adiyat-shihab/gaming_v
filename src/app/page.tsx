@@ -42,12 +42,11 @@ export default async function Home() {
       "hypes",
       "release_dates.date",
       "name",
-    ]) // Include desired fields
+    ])
     .limit(18)
     .where(`release_dates.date >=  ${Math.floor(Date.now() / 1000)}`)
     .sort("hypes", "desc")
     .request("/games");
-  console.log(response.data);
   return (
     <div>
       {/*<div*/}
