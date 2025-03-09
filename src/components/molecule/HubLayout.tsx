@@ -63,7 +63,7 @@ const HubLayout = () => {
           />
         </div>
         <div>
-          <p className={"text-[#F75049] text-end"}>pages</p>
+          <p className={"text-[#F75049] text-end"}>Login</p>
           <LodAnim />
         </div>
       </div>

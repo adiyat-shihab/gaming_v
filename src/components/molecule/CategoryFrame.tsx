@@ -39,7 +39,7 @@ const CategoryFrame = ({ title, index }: { title: string; index: number }) => {
             placeholder="Search..."
           />
         ) : (
-          <Link href={`/genre/${title}`}>
+          <Link href={`/games/${title}`}>
             <button
               style={{
                 clipPath:

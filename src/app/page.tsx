@@ -1,6 +1,7 @@
 import Image from "next/image";
 import twitchToken from "../lib/twitchToken";
 import igdb from "igdb-api-node";
+import Link from "next/link";
 
 export default async function Home() {
   // const genre = [
@@ -40,6 +41,7 @@ export default async function Home() {
       "hypes",
       "release_dates.date",
       "name",
+      "slug",
     ])
     .limit(18)
     .where(`release_dates.date >=  ${Math.floor(Date.now() / 1000)}`)
@@ -60,9 +62,12 @@ export default async function Home() {
         <h1 className={"text-7xl"}>Upcoming Games</h1>
         <div className={"grid-cols-6 grid gap-y-10 justify-center py-10"}>
           {response?.data?.map((game: object, index: number) => (
-            <div
+            <Link
               key={index}
-              className={"border-[#fb2c3680] border w-fit border-opacity-50"}
+              className={
+                "border-[#fb2c3680] cursor-pointer border w-fit border-opacity-50"
+              }
+              href={`/game/${game?.id}`}
             >
               {game?.cover?.url && (
                 <Image
@@ -73,7 +78,7 @@ export default async function Home() {
                   height={500}
                 />
               )}
-            </div>
+            </Link>
           ))}
         </div>
       </div>
